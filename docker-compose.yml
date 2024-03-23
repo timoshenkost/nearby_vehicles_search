@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: near
+      POSTGRES_PASSWORD: theendisnear
+      POSTGRES_DB: near_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    command: sh -c 'python manage.py migrate && python manage.py runserver 0.0.0.0:8000'
+
+volumes:
+  db_data:

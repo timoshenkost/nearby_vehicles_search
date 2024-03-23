@@ -5,7 +5,7 @@ from .serializers import (CargoDetailSerializer, CargoListSerializer,
                           VehicleSerializer)
 
 
-class CargoList(generics.ListAPIView):
+class CargoList(generics.ListCreateAPIView):
     queryset = Cargo.objects.all()
     serializer_class = CargoListSerializer
 

@@ -14,7 +14,7 @@ def load_data(sender, **kwargs):
     """
     if sender == apps.get_app_config('near_api_v1') and not Location.objects.exists():
         objs = []
-        with open('near_api_v1/data/uszips.csv', 'r', encoding='UTF-8') as locations_file:
+        with open('/code/near_api_v1/data/uszips.csv', 'r', encoding='UTF-8') as locations_file:
             reader = csv.DictReader(locations_file)
             # get a dictionary with data and write it to an object
             for location in reader:

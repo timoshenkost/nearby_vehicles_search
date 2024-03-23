@@ -68,17 +68,16 @@ WSGI_APPLICATION = 'nearbyVehiclesSearch.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'near',
+        'NAME': 'near_db',
         'USER': 'near',
-        'PASSWORD': '52027991',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'theendisnear',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
 
 
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {

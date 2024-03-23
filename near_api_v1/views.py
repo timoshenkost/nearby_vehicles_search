@@ -1,7 +1,8 @@
 from rest_framework import generics
 
 from .models import Cargo, Vehicle
-from .serializers import CargoListSerializer, CargoDetailSerializer, VehicleSerializer
+from .serializers import (CargoDetailSerializer, CargoListSerializer,
+                          VehicleSerializer)
 
 
 class CargoList(generics.ListAPIView):

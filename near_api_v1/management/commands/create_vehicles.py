@@ -2,7 +2,8 @@ import random
 import string
 
 from django.core.management.base import BaseCommand
-from near_api_v1.models import Vehicle, Location
+
+from near_api_v1.models import Location, Vehicle
 
 
 def create_vehicle_number():

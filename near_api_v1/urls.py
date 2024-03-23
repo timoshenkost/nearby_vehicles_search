@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import CargoList, CargoDetail, VehicleDetail
+
+from .views import CargoDetail, CargoList, VehicleDetail
 
 urlpatterns = [
     path("cargo_list/", CargoList.as_view(), name="cargo_list"),

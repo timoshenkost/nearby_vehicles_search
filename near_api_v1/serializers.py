@@ -1,7 +1,7 @@
-from rest_framework import serializers
 from geopy.distance import distance
+from rest_framework import serializers
 
-from .models import Cargo, Vehicle, Location
+from .models import Cargo, Location, Vehicle
 
 
 class CargoListSerializer(serializers.ModelSerializer):

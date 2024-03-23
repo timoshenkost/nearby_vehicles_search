@@ -1,4 +1,5 @@
-from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
+from django.core.validators import (MaxValueValidator, MinValueValidator,
+                                    RegexValidator)
 from django.db import models
 
 
@@ -18,7 +19,7 @@ class Cargo(models.Model):
     pick_up_location = models.ForeignKey(Location, related_name='pick_up_cargos',
                                          on_delete=models.SET_NULL, null=True)
     delivery_location = models.ForeignKey(Location, related_name='delivery_cargos',
-                                         on_delete=models.SET_NULL, null=True)
+                                          on_delete=models.SET_NULL, null=True)
     weight = models.IntegerField(default=1,
                                  validators=[MinValueValidator(1), MaxValueValidator(1000)])
     description = models.TextField()

@@ -1,5 +1,7 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 
+from .filters import CargoFilter
 from .models import Cargo, Vehicle
 from .serializers import (CargoDetailSerializer, CargoListSerializer,
                           VehicleSerializer)
@@ -8,18 +10,15 @@ from .serializers import (CargoDetailSerializer, CargoListSerializer,
 class CargoList(generics.ListCreateAPIView):
     queryset = Cargo.objects.all()
     serializer_class = CargoListSerializer
-
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = CargoFilter
 
 
 class CargoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cargo.objects.all()
     serializer_class = CargoDetailSerializer
     name = 'Cargo'
+
 
 class VehicleDetail(generics.RetrieveUpdateAPIView):
     queryset = Vehicle.objects.all()

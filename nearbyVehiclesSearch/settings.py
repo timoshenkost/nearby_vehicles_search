@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'near_api_v1.apps.NearApiConfig',
+    'django_filters',
 ]
 
 REST_FRAMEWORK = {

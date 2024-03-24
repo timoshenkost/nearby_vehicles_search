@@ -1,10 +1,11 @@
 import csv
 
 from django.apps import apps
+from django.core.management import call_command
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
 
-from .models import Location
+from .models import Location, Vehicle
 
 
 @receiver(post_migrate)
@@ -29,3 +30,12 @@ def load_data(sender, **kwargs):
 
         if objs:
             Location.objects.bulk_create(objs, batch_size=1000)
+
+
+@receiver(post_migrate)
+def default_vehicle(sender, **kwargs):
+    """
+    creates 20 vehicles by default
+    """
+    if sender == apps.get_app_config('near_api_v1') and not Vehicle.objects.exists():
+        call_command('create_vehicles', 20)

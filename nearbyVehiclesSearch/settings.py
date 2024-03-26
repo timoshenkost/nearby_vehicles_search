@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'near_api_v1.apps.NearApiConfig',
     'django_filters',
+    'django_celery_beat',
 ]
 
 REST_FRAMEWORK = {
@@ -114,3 +115,13 @@ STATIC_URL = 'static/'
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'db+postgresql://near:theendisnear@db/near_db'
+
+CELERY_BEAT_SCHEDULE = {
+    'update_locations': {
+        'task': 'near_api_v1.tasks.vehicle_locations_update',
+        'schedule': 60 * 3
+    },
+}

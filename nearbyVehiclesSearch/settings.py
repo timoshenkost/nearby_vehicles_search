@@ -122,11 +122,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CELERY_BROKER_URL = os.environ.get("BROKER_URL", "redis://localhost:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get("RESULT_BACKEND", "redis://localhost:6379/0")
-# 'db+postgresql://near:theendisnear@db/near_db'
 
 CELERY_BEAT_SCHEDULE = {
     'update_locations': {
         'task': 'near_api_v1.tasks.vehicle_locations_update',
-        'schedule': 60
+        'schedule': 60 * 3
     },
 }

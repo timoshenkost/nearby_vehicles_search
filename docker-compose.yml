@@ -20,6 +20,8 @@ services:
   app:
     restart: unless-stopped
     build: .
+    entrypoint: ["./wait-for-it.sh", "db:5432",
+                 "--strict", "--"]
     volumes:
       - .:/code
     ports:
@@ -39,6 +41,7 @@ services:
   celery:
     restart: unless-stopped
     build: .
+    entrypoint: ["./celery.sh"]
     environment:
       DEBUG: "True"
       CELERY_BROKER_URL: "redis://redis:6379/0"
@@ -48,7 +51,6 @@ services:
       POSTGRES_USER: near
       POSTGRES_PASSWORD: theendisnear
       POSTGRES_PORT: 5432
-    command: "celery -A nearbyVehiclesSearch worker --beat"
     depends_on:
       - app
       - redis

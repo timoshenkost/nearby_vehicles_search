@@ -3,11 +3,11 @@ version: '3'
 services:
   db:
     image: postgres:latest
-    restart: always
+    restart: unless-stopped
     environment:
+      POSTGRES_DB: near_db
       POSTGRES_USER: near
       POSTGRES_PASSWORD: theendisnear
-      POSTGRES_DB: near_db
     volumes:
       - db_data:/var/lib/postgresql/data
 
@@ -18,22 +18,41 @@ services:
       - redis_data:/data
 
   app:
+    restart: unless-stopped
     build: .
     volumes:
       - .:/code
     ports:
       - 8000:8000
+    environment:
+      DEBUG: "True"
+      CELERY_BROKER_URL: "redis://redis:6379/0"
+      CELERY_RESULT_BACKEND: "redis://redis:6379/0"
+      POSTGRES_HOST: db
+      POSTGRES_DB: near_db
+      POSTGRES_USER: near
+      POSTGRES_PASSWORD: theendisnear
+      POSTGRES_PORT: 5432
     command: sh -c "python manage.py migrate &&
       python manage.py runserver 0.0.0.0:8000"
 
   celery:
+    restart: unless-stopped
     build: .
+    environment:
+      DEBUG: "True"
+      CELERY_BROKER_URL: "redis://redis:6379/0"
+      CELERY_RESULT_BACKEND: "redis://redis:6379/0"
+      POSTGRES_HOST: db
+      POSTGRES_DB: near_db
+      POSTGRES_USER: near
+      POSTGRES_PASSWORD: theendisnear
+      POSTGRES_PORT: 5432
     command: "celery -A nearbyVehiclesSearch worker --beat"
     depends_on:
       - app
       - redis
       - db
-    restart: on-failure
 
 volumes:
   db_data:
